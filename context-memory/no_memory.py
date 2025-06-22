@@ -12,8 +12,8 @@ def simple_chat_without_memory(
     """
     # Initialize OpenAI API (or Ollama)
     if use_ollama:
-        client = OpenAI(base_url="http://localhost:11434/v1/", api_key="ollama")
-        model_name = "llama3.2"
+        client = OpenAI(base_url="http://127.0.0.1:11434/v1", api_key="ollama")
+        model_name = "llama3.2:3b"
     else:
         client = OpenAI()
         model_name = "gpt-4o-mini"

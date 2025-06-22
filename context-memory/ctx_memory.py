@@ -10,7 +10,7 @@ load_dotenv()
 def initialize_client(use_ollama: bool = False) -> OpenAI:
     """Initialize the OpenAI client for either OpenAI or OLLAMA."""
     if use_ollama:
-        return OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+        return OpenAI(base_url="http://127.0.0.1:11434/v1", api_key="ollama")
     return OpenAI()
 
 

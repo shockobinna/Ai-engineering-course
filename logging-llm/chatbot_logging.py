@@ -32,7 +32,7 @@ def setup_logging():
 def initialize_client(use_ollama: bool = True) -> OpenAI:
     """Initialize OpenAI client for either OpenAI or Ollama"""
     if use_ollama:
-        return OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+        return OpenAI(base_url="http://127.0.0.1:11434/v1", api_key="ollama")
     return OpenAI()
 
 
@@ -42,7 +42,7 @@ class ChatBot:
         self.session_id = str(uuid.uuid4())
         self.client = initialize_client(use_ollama)
         self.use_ollama = use_ollama
-        self.model_name = "llama3.2" if use_ollama else "gpt-4o-mini"
+        self.model_name = "llama3.2:3b" if use_ollama else "gpt-4o-mini"
 
         # Initialize conversation with a system message
         self.messages = [

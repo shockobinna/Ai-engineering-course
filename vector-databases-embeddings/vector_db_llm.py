@@ -27,62 +27,62 @@ client = OpenAI(api_key=openai_key)
 # === For initial setup -- Uncomment (below) all for the first run, and then comment it all out ===
 # =================================
 # Function to load documents from a directory
-def load_documents_from_directory(directory_path):
-    print("==== Loading documents from directory ====")
-    documents = []
-    for filename in os.listdir(directory_path):
-        if filename.endswith(".txt"):
-            with open(
-                os.path.join(directory_path, filename), "r", encoding="utf-8"
-            ) as file:
-                documents.append({"id": filename, "text": file.read()})
-    return documents
+# def load_documents_from_directory(directory_path):
+#     print("==== Loading documents from directory ====")
+#     documents = []
+#     for filename in os.listdir(directory_path):
+#         if filename.endswith(".txt"):
+#             with open(
+#                 os.path.join(directory_path, filename), "r", encoding="utf-8"
+#             ) as file:
+#                 documents.append({"id": filename, "text": file.read()})
+#     return documents
 
 
-# Function to split text into chunks
-def split_text(text, chunk_size=1000, chunk_overlap=20):
-    chunks = []
-    start = 0
-    while start < len(text):
-        end = start + chunk_size
-        chunks.append(text[start:end])
-        start = end - chunk_overlap
-    return chunks
+# # Function to split text into chunks
+# def split_text(text, chunk_size=1000, chunk_overlap=20):
+#     chunks = []
+#     start = 0
+#     while start < len(text):
+#         end = start + chunk_size
+#         chunks.append(text[start:end])
+#         start = end - chunk_overlap
+#     return chunks
 
 
-# Load documents from the directory
-directory_path = "./data/new_articles"
-documents = load_documents_from_directory(directory_path)
+# # Load documents from the directory
+# directory_path = "./data/new_articles"
+# documents = load_documents_from_directory(directory_path)
 
-# Split the documents into chunks
-chunked_documents = []
-for doc in documents:
-    chunks = split_text(doc["text"])
-    print("==== Splitting docs into chunks ====")
-    for i, chunk in enumerate(chunks):
-        chunked_documents.append({"id": f"{doc['id']}_chunk{i+1}", "text": chunk})
-
-
-# Function to generate embeddings using OpenAI API
-def get_openai_embedding(text):
-    response = client.embeddings.create(input=text, model="text-embedding-3-small")
-    embedding = response.data[0].embedding
-    print("==== Generating embeddings... ====")
-    return embedding
+# # Split the documents into chunks
+# chunked_documents = []
+# for doc in documents:
+#     chunks = split_text(doc["text"])
+#     print("==== Splitting docs into chunks ====")
+#     for i, chunk in enumerate(chunks):
+#         chunked_documents.append({"id": f"{doc['id']}_chunk{i+1}", "text": chunk})
 
 
-# Generate embeddings for the document chunks
-for doc in chunked_documents:
-    print("==== Generating embeddings... ====")
-    doc["embedding"] = get_openai_embedding(doc["text"])
+# # Function to generate embeddings using OpenAI API
+# def get_openai_embedding(text):
+#     response = client.embeddings.create(input=text, model="text-embedding-3-small")
+#     embedding = response.data[0].embedding
+#     print("==== Generating embeddings... ====")
+#     return embedding
 
 
-# Upsert documents with embeddings into Chroma
-for doc in chunked_documents:
-    print("==== Inserting chunks into db;;; ====")
-    collection.upsert(
-        ids=[doc["id"]], documents=[doc["text"]], embeddings=[doc["embedding"]]
-    )
+# # Generate embeddings for the document chunks
+# for doc in chunked_documents:
+#     print("==== Generating embeddings... ====")
+#     doc["embedding"] = get_openai_embedding(doc["text"])
+
+
+# # Upsert documents with embeddings into Chroma
+# for doc in chunked_documents:
+#     print("==== Inserting chunks into db;;; ====")
+#     collection.upsert(
+#         ids=[doc["id"]], documents=[doc["text"]], embeddings=[doc["embedding"]]
+#     )
 
 
 # === End of the initial setup -- Uncomment all for the first run, and then comment it all out ===
@@ -131,10 +131,12 @@ def generate_response(question, relevant_chunks):
     answer = response.choices[0].message
     return answer
 
-
-question = "give me a brief overview of the articles. Be concise, please."
+# "give me a brief overview of the articles. Be concise, please"
+question = "give me a brief overview of the articles. Be concise, please"
 relevant_chunks = query_documents(question)
 answer = generate_response(question, relevant_chunks)
 
-print("==== Answer ====")
+print("==== Answer relevant chunks ====")
+print(relevant_chunks)
+print("==== Answer openai ====")
 print(answer.content)

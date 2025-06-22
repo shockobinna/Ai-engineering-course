@@ -26,8 +26,8 @@ class EmbeddingModel:
             # using Ollama nomic-embed-text model
             self.embedding_fn = embedding_functions.OpenAIEmbeddingFunction(
                 api_key="ollama",
-                api_base="http://localhost:11434/v1",
-                model_name="nomic-embed-text",
+                api_base="http://127.0.0.1:11434/v1",
+                model_name="nomic-embed-text:latest",
             )
 
 
@@ -38,8 +38,8 @@ class LLMModel:
             self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
             self.model_name = "gpt-4o-mini"
         else:
-            self.client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
-            self.model_name = "llama3.2"
+            self.client = OpenAI(base_url="http://127.0.0.1:11434/v1", api_key="ollama")
+            self.model_name = "llama3.2:3b"
 
     def generate_completion(self, messages):
         try:
