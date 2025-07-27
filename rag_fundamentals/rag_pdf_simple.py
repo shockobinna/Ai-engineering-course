@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 import PyPDF2
 import uuid
+import textwrap
+
 
 # Load environment variables
 load_dotenv()
@@ -126,7 +128,7 @@ class SimpleRAGSystem:
         if llm_model == "openai":
             self.llm = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         else:
-            self.llm = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+            self.llm = OpenAI(base_url="http://127.0.0.1:11434/v1", api_key="ollama")
 
         # Get or create collection with proper handling
         self.collection = self.setup_collection()
@@ -143,8 +145,8 @@ class SimpleRAGSystem:
                 # For Nomic embeddings via Ollama
                 self.embedding_fn = embedding_functions.OpenAIEmbeddingFunction(
                     api_key="ollama",
-                    api_base="http://localhost:11434/v1",
-                    model_name="nomic-embed-text",
+                    api_base="http://127.0.0.1:11434/v1",
+                    model_name="nomic-embed-text:latest",
                 )
 
                 # Alternative if needed:
@@ -221,7 +223,7 @@ class SimpleRAGSystem:
     def generate_response(self, query, context):
         """Generate response using LLM"""
         try:
-            prompt = f"""
+            prompt = textwrap.dedent(f"""
             Based on the following context, please answer the question.
             If you can't find the answer in the context, say so, or I don't know.
 
@@ -231,9 +233,10 @@ class SimpleRAGSystem:
 
             Answer:
             """
+            )
 
             response = self.llm.chat.completions.create(
-                model="gpt-4o-mini" if self.llm_model == "openai" else "llama3.2",
+                model="gpt-4o-mini" if self.llm_model == "openai" else "llama3.2:3b",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt},
@@ -323,11 +326,19 @@ def main():
             with st.spinner("Generating response..."):
                 # Get relevant chunks
                 results = st.session_state.rag_system.query_documents(query)
+                # if results and results["documents"]:
+                #     # Generate response
+                #     response = st.session_state.rag_system.generate_response(
+                #         query, "\n\n".join(results["documents"][0])
+
+                #     )
                 if results and results["documents"]:
+                    # Join chunks into a single context string
+                    context = "\n\n".join(results["documents"][0])
+
                     # Generate response
-                    response = st.session_state.rag_system.generate_response(
-                        query, results["documents"][0]
-                    )
+                    response = st.session_state.rag_system.generate_response(query, context)
+
 
                     if response:
                         # Display results
