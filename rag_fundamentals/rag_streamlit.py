@@ -39,7 +39,7 @@ class LLMModel:
             self.model_name = "gpt-4o-mini"
         else:
             self.client = OpenAI(base_url="http://127.0.0.1:11434/v1", api_key="ollama")
-            self.model_name = "llama3.2:3b"
+            self.model_name = "llama3.2:latest"
 
     def generate_completion(self, messages):
         try:

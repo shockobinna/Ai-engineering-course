@@ -35,7 +35,7 @@ class SimpleModelSelector:
             "nomic": {
                 "name": "Nomic Embed Text",
                 "dimensions": 768,
-                "model_name": "nomic-embed-text",
+                "model_name": "nomic-embed-text:v1.5",
             },
         }
 
@@ -146,7 +146,7 @@ class SimpleRAGSystem:
                 self.embedding_fn = embedding_functions.OpenAIEmbeddingFunction(
                     api_key="ollama",
                     api_base="http://127.0.0.1:11434/v1",
-                    model_name="nomic-embed-text:latest",
+                    model_name="nomic-embed-text:v1.5",
                 )
 
                 # Alternative if needed:
