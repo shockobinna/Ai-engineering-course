@@ -148,7 +148,7 @@ def main():
     )
 
     ollama_summarizer = NewsArticleSummarizer(
-        model_type="ollama", model_name="llama3.2"  # or "llama3.2"
+        model_type="ollama", model_name="llama3.2:latest"  # or "llama3.2"
     )
 
     # Get summaries from both models

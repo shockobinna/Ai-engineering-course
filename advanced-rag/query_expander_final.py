@@ -8,7 +8,7 @@ from langchain_core.documents import Document
 
 
 from langchain.prompts import PromptTemplate
-from langchain_chroma import Chroma  # Updated import
+from langchain_community.vectorstores import Chroma # Updated import
 
 from chromadb.config import Settings
 import shutil

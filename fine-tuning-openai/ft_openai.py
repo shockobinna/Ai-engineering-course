@@ -218,21 +218,21 @@ df = pd.read_csv(file_like_object)
 
 ## Testing and evaluating -- first use the main model and prompt it:
 ## make sure to change the messages to match the data set we fine-tuned our model with
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[
-        {
-            "role": "system",
-            "content": "This is a customer support chatbot designed to help with common inquiries.",
-            "role": "user",
-            "content": "How do I change my tea preferences for the next shipment?",
-        }
-    ],
-)
-print(
-    response.choices[0].message.content
-)  # it should give us a random response or "I don't know..."
-print("\n ========")
+# response = client.chat.completions.create(
+#     model="gpt-4o-mini",
+#     messages=[
+#         {
+#             "role": "system",
+#             "content": "This is a customer support chatbot designed to help with common inquiries.",
+#             "role": "user",
+#             "content": "How do I change my tea preferences for the next shipment?",
+#         }
+#     ],
+# )
+# print(
+#     response.choices[0].message.content
+# )  # it should give us a random response or "I don't know..."
+# print("\n ========")
 
 
 fine_tuned_model = "ft:gpt-4o-2024-08-06:personal::Bd3Auqao2-getyourowd"

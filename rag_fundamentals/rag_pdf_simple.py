@@ -146,7 +146,7 @@ class SimpleRAGSystem:
                 self.embedding_fn = embedding_functions.OpenAIEmbeddingFunction(
                     api_key="ollama",
                     api_base="http://127.0.0.1:11434/v1",
-                    model_name="nomic-embed-text:v1.5",
+                    model_name="nomic-embed-text:latest",
                 )
 
                 # Alternative if needed:
@@ -236,7 +236,7 @@ class SimpleRAGSystem:
             )
 
             response = self.llm.chat.completions.create(
-                model="gpt-4o-mini" if self.llm_model == "openai" else "llama3.2:3b",
+                model="gpt-4o-mini" if self.llm_model == "openai" else "llama3.2:latest",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt},

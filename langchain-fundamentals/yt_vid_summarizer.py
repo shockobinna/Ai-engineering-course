@@ -10,6 +10,8 @@
 
 # windows
 # https://www.hostinger.com/tutorials/how-to-install-ffmpeg
+# 503b650c393596fa2b660ce77d65a90d02a0367d8d39cdcbc6dff85b16faa07a - ffmpeg hash
+# https://www.hostinger.com/tutorials/how-to-install-ffmpeg#How_to_install_FFmpeg_on_Windows
 
 import yt_dlp
 import whisper
@@ -49,7 +51,7 @@ class EmbeddingModel:
             from langchain.embeddings import OllamaEmbeddings
 
             self.embedding_fn = OllamaEmbeddings(
-                model="nomic-embed-text", base_url="http://localhost:11434"
+                model="nomic-embed-text:latest", base_url="http://127.0.0.1:11434/v1"
             )
         else:
             raise ValueError(f"Unsupported embedding type: {model_type}")
@@ -239,7 +241,7 @@ def main():
 
     # Configure model settings
     llm_type = "openai" if llm_choice == "1" else "ollama"
-    llm_model_name = "gpt-4" if llm_choice == "1" else "llama3.2"
+    llm_model_name = "gpt-4" if llm_choice == "1" else "llama3.2:latest"
 
     if embedding_choice == "1":
         embedding_type = "openai"
