@@ -1,0 +1,5 @@
+temporárias seguem o seguinte formato: 
+TB_REL_NICE_CALLBACK_D0_TMP_{CLUSTER}, 
+TB_REL_NICE_CALLBACK_D1_TMP_{CLUSTER}, 
+TB_REL_NICE_CALLBACK_D2_TMP_{CLUSTER}, 
+TB_REL_NICE_CALLBACK_REPROCESSING_TMP_{CLUSTER}4.6.2. Procedures utilizadas. \nAs procedures do banco de dados, utilizados por cada Job, são: \n- Job do D0/Real-Time:  \nPINS_REL_NICE_GENERATE_CALLBACK_D0_{CLUSTER} \n- Job do D1:  \n1_{CL

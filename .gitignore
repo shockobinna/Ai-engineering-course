@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#chrom_db in IT-SUPPORT-RAG
+IT-SUPPORT-RAG/chrom_db/
+IT-SUPPORT-RAG/data/
+
 # C extensions
 *.so
 
