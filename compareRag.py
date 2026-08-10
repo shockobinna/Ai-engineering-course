@@ -58,9 +58,6 @@ def query_client(client_name, question):
         })
     return results
 
-from langchain.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
-
 PERSIST_DIR = "./chroma_clients"
 
 def get_client_vectorstore(client_name: str):
