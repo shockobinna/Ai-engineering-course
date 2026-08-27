@@ -79,24 +79,30 @@ def process_command(query):
         send_email()
 
 
-        
+    elif (
+    "goodbye" in query
+    or "exit" in query
+    or "thank you" in query
+    or "thanks" in query
+    or "quit" in query
+):
 
-
-
-    elif "goodbye" in query or "exit" in query or "Thank you" in query or "Thanks" in query or "quit" in query:
+        print("EXIT COMMAND DETECTED")
 
         speak("Goodbye, David.")
+
+        print("Returning False to main.py")
 
         return False
 
     else:
 
         speak(
-            "I'm sorry, I don't know how to do that yet.To exit or quit please say goodbye or exit"
+            "I'm sorry, I don't know how to do that yet. "
+            "To exit or quit, please say goodbye or exit."
         )
 
     return True
-
 
 #TO DO
 # COMMANDS = {
