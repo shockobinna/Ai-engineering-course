@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
 import webbrowser
 from urllib.parse import quote
 from voice import speak, take_command
 import pywhatkit as kit
 import smtplib
+
+load_dotenv()
 
 
 def open_gmail():
@@ -80,3 +84,21 @@ def send_email():
     speak("Whom to send the email , enter email address sir ")
     to = input("Enter Email Address : \n ")
     sendEmail(to, content)
+
+import requests
+
+def get_weather():
+    api_key = os.getenv("WEATHER_API_KEY")
+    city = "São Paulo"
+
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric&lang=en"
+
+    response = requests.get(url)
+    data = response.json()
+
+    temperature = data["main"]["temp"]
+    description = data["weather"][0]["description"]
+
+    speak(f"The temperature in {city} is {temperature:.0f} degrees Celsius, with {description}.")
+
+    

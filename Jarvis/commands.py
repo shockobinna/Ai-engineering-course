@@ -1,7 +1,22 @@
 from voice import speak, take_command
 from wikipedia_service import search_wikipedia
 from news_service import get_news
-from local_aplication import local_IP, open_cmd, open_vault,open_anotation,play_songs_locally
+from local_aplication import (
+local_IP, 
+ open_cmd, 
+ open_vault,open_anotation,
+ play_songs_locally,
+ get_cpu,
+get_ram,
+get_disk,
+get_battery,
+take_screenshot,
+get_volume,
+set_volume,
+lock_pc,
+shutdown_pc
+ )
+
 from browser_service import (
     open_gmail,
     open_youtube,
@@ -11,7 +26,8 @@ from browser_service import (
     cervello,
     play_song_on_youtube,
     send_whats_msg,
-    send_email
+    send_email,
+    get_weather
 )
 
 
@@ -77,6 +93,33 @@ def process_command(query):
 
     elif "send email" in query:
         send_email()
+
+    elif "weather" in query or "temperature" in query:
+        get_weather()
+
+    elif "cpu" in query:
+        get_cpu()
+
+    elif "ram" in query or "memory" in query:
+        get_ram()
+
+    elif "disk" in query or "storage" in query:
+        get_disk()
+
+    elif "battery" in query:
+        get_battery()
+
+    elif "screenshot" in query:
+        take_screenshot()
+
+    elif "lock computer" in query or "lock pc" in query:
+        lock_pc()
+
+    elif "shutdown" in query:
+        shutdown_pc()
+
+    elif "volume" in query:
+        get_volume()
 
 
     elif (
@@ -187,3 +230,70 @@ def process_command(query):
 # and maps that to open_gmail() automatically.
 
 # That's the point where your project goes from a Python voice-command tutorial to an actual AI desktop assistant. 🤖
+
+# using a command router:
+
+"""
+SYSTEM_COMMANDS = {
+    "cpu": get_cpu,
+    "ram": get_ram,
+    "memory": get_ram,
+    "disk": get_disk,
+    "storage": get_disk,
+    "battery": get_battery,
+    "screenshot": take_screenshot,
+    "volume": get_volume,
+    "lock computer": lock_pc,
+    "lock pc": lock_pc,
+    "shutdown": shutdown_pc,
+}
+
+
+APP_COMMANDS = {
+    "youtube": open_youtube,
+    "spotify": open_spotify,
+    "chrome": open_chrome,
+}
+
+
+INFORMATION_COMMANDS = {
+    "weather": get_weather,
+    "temperature": get_weather,
+}
+
+def command_router(query):
+
+    all_commands = {
+        **SYSTEM_COMMANDS,
+        **APP_COMMANDS,
+        **INFORMATION_COMMANDS,
+    }
+
+    for phrase, function in all_commands.items():
+
+        if phrase in query:
+            function()
+            return True
+
+    return False
+
+
+    This gives you a much nicer architecture:
+    JARVIS
+│
+├── main.py
+│
+├── commands/
+│   ├── system.py
+│   ├── apps.py
+│   ├── information.py
+│   └── automation.py
+│
+├── router.py
+│
+├── speech/
+│   ├── listen.py
+│   └── speak.py
+│
+└── config.py
+"""
